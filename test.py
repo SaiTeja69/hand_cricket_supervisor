@@ -31,7 +31,7 @@ while True:
     roi = edges[100:500, 100:500]
     img = cv2.cvtColor(roi, cv2.COLOR_BGR2RGB)
     img = cv2.resize(img, (227, 227))
-    pred = model.predict(np.array([img]).resize(227,227,1))
+    pred = model.predict(np.array([img]))
     move_code = np.argmax(pred[0])
     gesture_name = mapper(move_code)
     font = cv2.FONT_HERSHEY_SIMPLEX

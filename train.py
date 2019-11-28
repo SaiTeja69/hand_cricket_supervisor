@@ -30,7 +30,7 @@ def mapper(val):
 def get_model():
     model = Sequential([
         SqueezeNet(input_shape=(227, 227, 3), include_top=False),
-        Dropout(0.5),
+        Dropout(0.6),
         Convolution2D(NUM_CLASSES, (1, 1), padding='valid'),
         Activation('relu'),
         GlobalAveragePooling2D(),
@@ -64,5 +64,5 @@ model.compile(
 )
 X=np.array(data)
 Y=np.array(labels)
-model.fit(X, Y, validation_split=0.33, epochs=20, batch_size=100)
+model.fit(X, Y, validation_split=0.33, epochs=7, batch_size=100)
 model.save("gesturecheck.h5")
