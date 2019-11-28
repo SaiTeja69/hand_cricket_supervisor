@@ -7,6 +7,7 @@ from keras.layers import Activation, Dropout, Convolution2D, GlobalAveragePoolin
 from keras.models import Sequential
 import tensorflow as tf
 import os
+from random import shuffle
 
 img_path='res'
 CLASS_MAP = { #any new gesture has to be added here
@@ -51,16 +52,17 @@ for directory in os.listdir(img_path):
         img = cv2.resize(img, (227, 227))
         dataset.append([img, directory])
 
+shuffle(dataset)
 data, labels = zip(*dataset)
 labels = list(map(mapper, labels))
 labels = np_utils.to_categorical(labels) #encoding now
 model = get_model()
 model.compile(
-    optimizer=Adam(lr=1e-3),
+    optimizer=Adam(lr=0.0001),
     loss='categorical_crossentropy',
     metrics=['accuracy']
 )
 X=np.array(data)
 Y=np.array(labels)
-model.fit(X, Y, validation_split=0.33, epochs=20, batch_size=300)
+model.fit(X, Y, validation_split=0.33, epochs=20, batch_size=100)
 model.save("gesturecheck.h5")

@@ -31,13 +31,13 @@ while True:
     roi = edges[100:500, 100:500]
     img = cv2.cvtColor(roi, cv2.COLOR_BGR2RGB)
     img = cv2.resize(img, (227, 227))
-    pred = model.predict(np.array([img]))
+    pred = model.predict(np.array([img]).resize(227,227,1))
     move_code = np.argmax(pred[0])
     gesture_name = mapper(move_code)
     font = cv2.FONT_HERSHEY_SIMPLEX
     cv2.putText(frame, gesture_name,
                 (50, 50), font, 1.2, (255, 255, 255), 2, cv2.LINE_AA)
-    cv2.imshow("Gesture Detection", frame)
+    cv2.imshow("Hand Detection", frame)
 
     k = cv2.waitKey(10)
     if k == ord('q'):
