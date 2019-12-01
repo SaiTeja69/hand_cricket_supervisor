@@ -64,5 +64,5 @@ model.compile(
 )
 X=np.array(data)
 Y=np.array(labels)
-model.fit(X, Y, validation_split=0.33, epochs=7, batch_size=100)
+model.fit(X, Y, validation_split=0.25, epochs=1, batch_size=50)
 model.save("gesturecheck.h5")
