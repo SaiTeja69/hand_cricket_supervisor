@@ -1,9 +1,9 @@
 from keras.models import load_model
 import cv2
 import numpy as np
-
+from time import sleep
 model = load_model("gesturecheck.h5")
-
+z=0
 cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1500)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT,1500)
@@ -29,18 +29,18 @@ while True:
     move_code2 = np.argmax(pred2[0])
     x=int(move_code1)
     y=int(move_code2)
-    z=0
     printerr=''
     if x==y:
+    	z=0
     	printerr='game over'
     else:
-    	z=x+y
+    	z+=x
     	printerr='score = '+str(z)
 
     font = cv2.FONT_HERSHEY_SIMPLEX
     cv2.putText(frame, printerr,
                (50, 50), font, 1.2, (255, 255, 255), 2, cv2.LINE_AA)
-    cv2.imshow("Hand Detection", frame)
+    cv2.imshow("Hand Cricket", frame)
     k = cv2.waitKey(10)
     if k == ord('q'):
         break
